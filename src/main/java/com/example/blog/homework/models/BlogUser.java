@@ -13,7 +13,7 @@ import java.util.List;
 public class BlogUser implements UserDetails {
 
     @Id
-    private String eMail;
+    private String userName;
     private String password;
     private String nickName;
     @Enumerated(EnumType.STRING)
@@ -27,27 +27,27 @@ public class BlogUser implements UserDetails {
         blogList = new ArrayList<>();
     }
 
-    public BlogUser(String eMail, String password, String nickName, Authority authority) {
-        this.eMail = eMail;
+    public BlogUser(String userName, String password, String nickName, Authority authority) {
+        this.userName = userName;
         this.password = password;
         this.nickName = nickName;
         this.authority = authority;
     }
 
-    public BlogUser(String eMail, String password, String nickName, Authority authority, boolean isLocked) {
-        this.eMail = eMail;
+    public BlogUser(String userName, String password, String nickName, Authority authority, boolean isLocked) {
+        this.userName = userName;
         this.password = password;
         this.nickName = nickName;
         this.authority = authority;
         this.isLocked = isLocked;
     }
 
-    public String geteMail() {
-        return eMail;
+    public String geteUserName() {
+        return userName;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void seteUserName(String eMail) {
+        this.userName = eMail;
     }
 
     @Override
@@ -60,34 +60,33 @@ public class BlogUser implements UserDetails {
 
         return list;
     }
+    @Override
+    public String getUsername() {
+        return userName;
+    }
 
     public String getPassword() {
         return password;
     }
 
     @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return !isLocked;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return !isLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return !isLocked;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return !isLocked;
     }
 
     public void setPassword(String password) {

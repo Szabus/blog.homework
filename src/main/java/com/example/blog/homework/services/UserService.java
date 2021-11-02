@@ -32,8 +32,8 @@ public class UserService implements UserDetailsService {
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return em.createQuery("SELECT user FROM BlogUser user WHERE user.eMail = :username", BlogUser.class)
-                .setParameter("username", username)
+        return em.createQuery("SELECT user FROM BlogUser user WHERE user.userName = :name", BlogUser.class)
+                .setParameter("name", username)
                 .getSingleResult();
     }
 

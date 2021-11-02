@@ -2,7 +2,6 @@ package com.example.blog.homework.controllers;
 
 import com.example.blog.homework.models.Blog;
 import com.example.blog.homework.models.BlogUser;
-import com.example.blog.homework.repositories.UserRepository;
 import com.example.blog.homework.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +21,8 @@ public class UserController {
     }
 
     @GetMapping(value = {"/", "/home"})
-    public String getHello() {
-        return "hello";
+    public String getHome() {
+        return "Welcome Home";
     }
 
     @GetMapping("/user")
@@ -57,14 +56,24 @@ public class UserController {
         }
         return "not ok";
     }
-        // /blogs
-    //○	method: GET
-    //○	feladat: visszaadja az összes blogot az adatbázisból
 
+    /*
+    * /users
+method: GET
+feladat: visszaadja az összes felhasználót az adatbázisból
+/users/{id}
+method: GET
+@PathVariable Long id
+feladat: visszaadja az adott id-jű felhasználót adatbázisból
+megjegyzés: ha nincs szám típusú id-ja a felhasználóidnak, akkor ebben az endpoint-ban lecserélhető a Long id arra az adattípusra, amilyen PRIMARY KEY-t használsz
+/user
+method: GET
+feladat: visszaadja a bejelentkezett felhasználót
+/register
+method: POST
+@RequestBody User user
+feladat: új felhasználót rögzít az adatbázisba
+megjegyzés: a User típus nem kötelező - a saját felhasználói típusodat használd
+*/
 
-    ///blogs
-    //○	method: POST
-    //○	@RequestBody Blog blog
-    //○	feladat: új blogot rögzít az adatbázisba
-    //○	megjegyzés: a felhasználónak be kell jelentkeznie új blog készítéséhez
 }
