@@ -1,10 +1,15 @@
 package com.example.blog.homework.controllers;
 
+import com.example.blog.homework.models.Blog;
 import com.example.blog.homework.services.BlogService;
-import com.example.blog.homework.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class BlogController {
@@ -17,20 +22,15 @@ public class BlogController {
         this.service = service;
     }
 
-    @GetMapping(value = {"/", "/home"})
-    public String getHome() {
-        return "Welcome Home";
+    @GetMapping
+    public List<Blog> getAllBlogs() {
+        return null;
     }
 
-
-// /blogs
-    //○	method: GET
-    //○	feladat: visszaadja az összes blogot az adatbázisból
-
-
-    ///blogs
-    //○	method: POST
-    //○	@RequestBody Blog blog
-    //○	feladat: új blogot rögzít az adatbázisba
-    //○	megjegyzés: a felhasználónak be kell jelentkeznie új blog készítéséhez
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/blog")
+    public String createBlog(@RequestBody Blog blog) {
+        service.createBlog(blog);
+        return "Blog elkészült";
+    }
 }

@@ -66,23 +66,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public boolean registerUsers() {
-        try {
-            String userPw = encoder.encode("user");
-            String adminPw = encoder.encode("admin");
-            String moderatorPw = encoder.encode("moderator");
+    public BlogUser registerUser(BlogUser user){
 
-            BlogUser user = new BlogUser("user", userPw, "user", Authority.USER);
-            BlogUser admin = new BlogUser("admin", adminPw, "admin", Authority.ADMIN);
-            BlogUser moderator = new BlogUser("moderator", moderatorPw,"moderator", Authority.MODERATOR);
-
-            em.persist(user);
-            em.persist(admin);
-            em.persist(moderator);
-
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        user.setPassword(encoder.encode(user.getPassword()));
+        em.persist(user);
+        return user;
     }
 }

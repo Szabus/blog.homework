@@ -42,12 +42,12 @@ public class BlogUser implements UserDetails {
         this.isLocked = isLocked;
     }
 
-    public String geteUserName() {
+    public String getUserName() {
         return userName;
     }
 
-    public void seteUserName(String eMail) {
-        this.userName = eMail;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override
