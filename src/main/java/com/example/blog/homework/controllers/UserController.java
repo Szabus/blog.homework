@@ -1,8 +1,11 @@
 package com.example.blog.homework.controllers;
 
+import com.example.blog.homework.models.Blog;
 import com.example.blog.homework.models.BlogUser;
 import com.example.blog.homework.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,29 +22,29 @@ public class UserController {
 
 
     @GetMapping("/user")
-    public BlogUser getLoggedInUser() {
-        return service.getLoggedInUser();
+    public ResponseEntity<BlogUser> getLoggedInUser() {
+        return new ResponseEntity<>(service.getLoggedInUser(), HttpStatus.OK);
     }
 
     @GetMapping("/users")
-    public List<BlogUser> getAllUsers() {
-        return service.getAllUsers();
+    public ResponseEntity<List<BlogUser>> getAllUsers() {
+        return new ResponseEntity<>(service.getAllUsers(), HttpStatus.OK);
     }
 
 
-    @GetMapping(value = {"/users/", "/users/{username}"})
-    public BlogUser getOneUser(
+    @GetMapping(value = {"/user/", "/user/{username}"})
+    public ResponseEntity<BlogUser> getOneUser(
             @PathVariable("username") String username
     ) {
         if (username != null) {
-            return service.getOneUser(username);
+            return new ResponseEntity<>(service.getOneUser(username), HttpStatus.OK);
         }
         return null;
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestBody BlogUser user) {
+    public ResponseEntity<String> registerUser(@RequestBody BlogUser user) {
         service.registerUser(user);
-        return "Felhasználó rögzítve";
+        return new ResponseEntity<>("User added.",HttpStatus.OK);
     }
 }
