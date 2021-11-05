@@ -2,9 +2,12 @@ package com.example.blog.homework.models;
 
 public enum UserAuth {
 
-    READ,
+    READ_BLOG,
+    READ_ALL,
+    CREATE,
     WRITE,
-    EDIT,
-    DELETE
-
+    MODIFY_SELF,
+    MODIFY_ALL,
+    DELETE_SELF,
+    DELETE_ALL
 }

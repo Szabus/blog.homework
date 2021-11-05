@@ -1,6 +1,5 @@
 package com.example.blog.homework.controllers;
 
-import com.example.blog.homework.models.Blog;
 import com.example.blog.homework.models.BlogUser;
 import com.example.blog.homework.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ public class UserController {
         this.service = service;
     }
 
-
     @GetMapping("/user")
     public ResponseEntity<BlogUser> getLoggedInUser() {
         return new ResponseEntity<>(service.getLoggedInUser(), HttpStatus.OK);
@@ -32,7 +30,7 @@ public class UserController {
     }
 
 
-    @GetMapping(value = {"/user/", "/user/{username}"})
+    @GetMapping(value = {"/users/", "/users/{username}"})
     public ResponseEntity<BlogUser> getOneUser(
             @PathVariable("username") String username
     ) {

@@ -1,7 +1,6 @@
 package com.example.blog.homework.models;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -13,11 +12,11 @@ import java.util.List;
 public class BlogUser implements UserDetails {
 
     @Id
-    private String userName;
+    private String username;
     private String password;
     private String nickName;
     @Enumerated(EnumType.STRING)
-    private Authority authority;
+    private UserRole userRole;
     private boolean isLocked;
     @OneToMany(mappedBy = "author")
     private List<Blog> blogList;
@@ -27,42 +26,33 @@ public class BlogUser implements UserDetails {
         blogList = new ArrayList<>();
     }
 
-    public BlogUser(String userName, String password, String nickName, Authority authority) {
-        this.userName = userName;
+    public BlogUser(String username, String password, String nickName, UserRole userRole) {
+        this.username = username;
         this.password = password;
         this.nickName = nickName;
-        this.authority = authority;
+        this.userRole = userRole;
     }
 
-    public BlogUser(String userName, String password, String nickName, Authority authority, boolean isLocked) {
-        this.userName = userName;
+    public BlogUser(String username, String password, String nickName, UserRole userRole, boolean isLocked) {
+        this.username = username;
         this.password = password;
         this.nickName = nickName;
-        this.authority = authority;
+        this.userRole = userRole;
         this.isLocked = isLocked;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> list = new ArrayList<>();
-
-        for (UserAuth auth : authority.AUTHS) {
-            list.add(new SimpleGrantedAuthority(auth.toString()));
-        }
-
-        return list;
+        return userRole.getAuths();
     }
+
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     public String getPassword() {
@@ -101,12 +91,12 @@ public class BlogUser implements UserDetails {
         this.nickName = nickName;
     }
 
-    public Authority getAuthority() {
-        return authority;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setAuthority(Authority authority) {
-        this.authority = authority;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public boolean isLocked() {

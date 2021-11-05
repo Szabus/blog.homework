@@ -3,7 +3,8 @@ package com.example.blog.homework.controllers;
 import com.example.blog.homework.models.Blog;
 import com.example.blog.homework.services.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,15 +23,14 @@ public class BlogController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<Blog> getAllBlogs() {
-        return null;
-    }
+    @GetMapping("/allblogs")
+    public ResponseEntity<List<Blog>> getAllBlogs() {
+            return new ResponseEntity<>(service.getAllBlogs(), HttpStatus.OK);
+        }
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/blog")
-    public String createBlog(@RequestBody Blog blog) {
+    @PostMapping("/blogs")
+    public ResponseEntity<String> createBlog(@RequestBody Blog blog) {
         service.createBlog(blog);
-        return "Blog elkészült";
+        return new ResponseEntity<>("Blog added.", HttpStatus.OK);
     }
 }

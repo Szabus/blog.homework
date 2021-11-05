@@ -1,6 +1,5 @@
 package com.example.blog.homework.services;
 
-import com.example.blog.homework.models.Authority;
 import com.example.blog.homework.models.BlogUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,10 +31,11 @@ public class UserService implements UserDetailsService {
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return em.createQuery("SELECT user FROM BlogUser user WHERE user.userName = :name", BlogUser.class)
+        return em.createQuery("SELECT user FROM BlogUser user WHERE user.username = :name", BlogUser.class)
                 .setParameter("name", username)
                 .getSingleResult();
     }
+
 
     public BlogUser getLoggedInUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -46,7 +46,6 @@ public class UserService implements UserDetailsService {
                 return (BlogUser) principal;
             }
         }
-
         return null;
     }
 

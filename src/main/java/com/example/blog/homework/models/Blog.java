@@ -18,7 +18,6 @@ public class Blog {
     private BlogCategory category;
     @Enumerated(EnumType.STRING)
     private BlogColor blogColor;
-    private byte[] wallPaper;
     @CreationTimestamp
     private LocalDateTime regTime;
     private boolean isLocked;
@@ -29,15 +28,21 @@ public class Blog {
         entryList = new ArrayList<>();
     }
 
-    public Blog(String blogName, BlogUser author, BlogCategory category,
-                BlogColor blogColor, byte[] wallPaper, LocalDateTime regTime, boolean isLocked) {
+    public Blog(String blogName, BlogUser author, BlogCategory category, BlogColor blogColor,
+                LocalDateTime regTime, boolean isLocked, List<BlogEntry> entryList) {
         this.blogName = blogName;
         this.author = author;
         this.category = category;
         this.blogColor = blogColor;
-        this.wallPaper = wallPaper;
         this.regTime = regTime;
         this.isLocked = isLocked;
+        this.entryList = entryList;
+    }
+
+    public Blog(String blogName, BlogCategory category, BlogColor blogColor) {
+        this.blogName = blogName;
+        this.category = category;
+        this.blogColor = blogColor;
     }
 
     public String getBlogName() {
@@ -70,14 +75,6 @@ public class Blog {
 
     public void setBlogColor(BlogColor blogColor) {
         this.blogColor = blogColor;
-    }
-
-    public byte[] getWallPaper() {
-        return wallPaper;
-    }
-
-    public void setWallPaper(byte[] wallPaper) {
-        this.wallPaper = wallPaper;
     }
 
     public LocalDateTime getRegTime() {
